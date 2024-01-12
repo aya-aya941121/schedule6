@@ -1,0 +1,57 @@
+<%= render partial: "layouts/flash" %>
+<h1>予定詳細ページ</h1>
+<table>
+ <tr>
+   <th>項目</th>
+   <th>内容</th>
+ </tr>
+ <tr>
+   <td>タイトル</td>
+   <td><%= @schedule.title %></td>
+ </tr>
+ <tr>
+   <td>開始日</td>
+   <td><%= @schedule.start_date.strftime("%Y/%m/%d") %></td>
+ </tr>
+ <tr>
+   <td>終了日</td>
+   <td><%= @schedule.end_date.strftime("%Y/%m/%d") %></td>
+ </tr>
+ <tr>
+   <td>終日</td>
+   <td><%= @schedule.all_day ? "○" : "" %></td>
+ </tr>
+ <tr>
+   <td>スケジュールメモ</td>
+   <td><%= @schedule.memo %></td>
+ </tr>
+</table>
+
+
+<p><%= link_to "予定一覧ページへ", schedules_path %></p>
+<p><%= link_to "予定編集ページへ", edit_schedule_path(@schedule) %></p>
+<p><a href="#" class="btn btn-danger" onclick="openModal()">予定を削除する</a></p>
+
+
+<!-- モーダルウィンドウのHTMLコード -->
+<div id="delete-modal" style="display: none;">
+ <div id="delete-modal-content">
+   <h2>予定を削除しますか？</h2>
+   <p>この操作は取り消せません。</p>
+   <%= button_to "削除", schedule_path(@schedule), method: :delete, class: "btn btn-danger" %>
+   <a href="#" class="btn btn-secondary" onclick="closeModal()">キャンセル</a>
+ </div>
+</div>
+
+
+<!-- モーダルウィンドウを表示するJavaScriptコード -->
+<script>
+function openModal() {
+ document.getElementById("delete-modal").style.display = "flex";
+}
+
+
+function closeModal() {
+ document.getElementById("delete-modal").style.display = "none";
+}
+</script>
